@@ -1,8 +1,10 @@
 #include <iostream>
+#include <ctime>
 
 #include "headers/appliances.h"
 #include "headers/appliancefactory.h"
 #include "headers/hasher.h"
+#include "headers/time.h"
 
 namespace Command{
 	enum Commands{
@@ -28,9 +30,15 @@ namespace Command{
 using namespace std;
 
 int main(){
+	std::srand(std::time(0));
+
 	string UserInput;
 	int UserHash;
 	
+	Sensor* aaa=new Sensor();
+	aaa->dataView();
+	aaa->dataView();
+	return 0;	
 
 
 	Appliance* temp1=nullptr;

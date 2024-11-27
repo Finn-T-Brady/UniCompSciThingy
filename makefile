@@ -1,4 +1,4 @@
-obj = appliancefactory.cpp ApplianceBases.cpp Light.cpp Speaker.cpp sensor.cpp Valve.cpp
+obj = appliancefactory.cpp ApplianceBases.cpp Light.cpp Speaker.cpp sensor.cpp Valve.cpp Time.cpp
 
 inc=$(addprefix src\def\,$(obj))
 

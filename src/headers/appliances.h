@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include "time.h"
+
 namespace Devices{
 	enum AppType{
 		Light=0,
@@ -66,10 +68,7 @@ class Sensor : public Appliance{
 
 class Speaker : public ToggleWithPercent{
 	public:
-		enum SpeakerState{
-			Playing=true,
-			Paused=false
-		};
+		enum SpeakerState:bool;
 		int Play();
 		int Pause();
 		bool isPlaying();

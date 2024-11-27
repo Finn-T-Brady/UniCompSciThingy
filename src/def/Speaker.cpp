@@ -1,6 +1,11 @@
 #include "../headers/appliances.h"
 #include <iostream>
 
+enum Speaker::SpeakerState:bool{
+	Playing=true,
+	Paused=false
+};
+
 int Speaker::Play(){
 	this->setState(Playing);
 	return 0;

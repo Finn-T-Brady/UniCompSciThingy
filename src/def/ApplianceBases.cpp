@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../headers/appliances.h"
-
+#include "../headers/time.h"
 
 //ApplianceBase
 int Appliance::rename(std::string NewName){
