@@ -35,12 +35,6 @@ int main(){
 	string UserInput;
 	int UserHash;
 	
-	Sensor* aaa=new Sensor();
-	aaa->dataView();
-	aaa->dataView();
-	return 0;	
-
-
 	Appliance* temp1=nullptr;
 	
 
