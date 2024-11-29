@@ -20,6 +20,8 @@ class Appliance{
 		virtual int OCF()=0;
 		int rename(std::string NewName);
 		std::string getName();
+
+		virtual int dump(std::ostream& o)=0;
 };
 
 class Toggleable : public Appliance{
@@ -54,16 +56,11 @@ class Schedule : public Toggleable{
 
 class Sensor : public Appliance{
 	public:
-		enum SensType{
-			Humidity=0,
-			Temperature=1
-		};
+		enum SensType:int;
 		int OCF();
 		int dataView();
 		int dataView(int range);
 		int dataView(int range, SensType data);
-	friend std::ostream& operator<<(std::ostream& out,const Sensor& obj);
-	friend std::ostream& operator||(std::ostream& out,const Sensor& obj);
 };
 
 class Speaker : public ToggleWithPercent{
@@ -74,14 +71,14 @@ class Speaker : public ToggleWithPercent{
 		bool isPlaying();
 		int setVolume(int newVol);
 		int getVolume();
-	friend std::ostream& operator<<(std::ostream& out,const Speaker& obj);
 };
 
 class Light : public ToggleWithPercent{
 	public:
 		int setLevel(int p);
 		int getLevel();
-	friend std::ostream& operator<<(std::ostream& out,const Light& obj);
+		int setOn(bool s);
+		bool isOn();
 };
 
 class Thermostat : public Schedule{
@@ -89,7 +86,6 @@ class Thermostat : public Schedule{
 		//
 	public:
 		//
-	friend std::ostream& operator<<(std::ostream& out,const Thermostat& obj);
 };
 
 class Socket : public Schedule{
@@ -97,7 +93,6 @@ class Socket : public Schedule{
 		//
 	public:
 		//
-	friend std::ostream& operator<<(std::ostream& out,const Socket& obj);
 };
 
 class Valve : public Schedule{
@@ -105,5 +100,4 @@ class Valve : public Schedule{
 		//
 	public:
 		int getCurrentTemp();
-	friend std::ostream& operator<<(std::ostream& out,const Valve& obj);
 };

@@ -20,5 +20,6 @@ namespace Rider{
 			bool operator>(const Time& t);
 	
 			friend std::ostream& operator<<(std::ostream& o,Time& t);
+			friend std::ostream& operator||(std::ostream& o,Time& t);
 	};
 };

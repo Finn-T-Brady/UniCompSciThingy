@@ -1,88 +1,51 @@
 #include <iostream>
+#include <vector>
 #include <ctime>
 
 #include "headers/appliances.h"
 #include "headers/appliancefactory.h"
-#include "headers/hasher.h"
-#include "headers/time.h"
 
-namespace Command{
-	enum Commands{
-		list=1398,
-		add=633,
-		view=9805,
-		quit=8015,
-		exit=6134,
-		by=1943,
-		only=5028,
-		just=8788
-	};
-	enum Devices{
-		light=3662,
-		sensor=4034,
-		speaker=7911,
-		thermostat=4455,
-		socket=2515,
-		valve=4080
-	};
-};
+#include "headers/time.h"
 
 using namespace std;
 
 int main(){
 	std::srand(std::time(0));
-
+	
+	vector<Appliance*> Devices;
+	
 	string UserInput;
-	int UserHash;
-	
-	Appliance* temp1=nullptr;
-	
 
 	bool invalid=false;
 	bool active=true;
 
-	int arg1;
-	int arg2;
 	while(active){
-		cout<<"[options here]\n";
+		cout<<"[Device Name]:One Click Function\n1:List\n2:Sort by Name\n3:Sort by Type\n4:View device menue\n5:Add device\n9:Quit program\n";
 		do{
 			invalid=false;
 			cout<<'>';
 			getline(cin,UserInput);
-			cout<<UserInput<<'\n';
-			UserHash=RSHash(UserInput)%10000;
-			cout<<UserHash<<'\n';
-			switch(UserHash){
-				case 0:
-					invalid=true;
+			switch(UserInput[0]-'0'){
+				case 1://List
 					break;
-				case Command::list:
-					arg1=RSHash(UserInput,5)%10000;
-					if(arg1==0){
-						//
-					}else if(arg1==Command::by){
-						arg2=RSHash(UserInput,8);
-
-					}else if(arg1==Command::only||arg1==Command::just){
-						arg2=RSHash(UserInput,10);
-					}else{
-						invalid=true;
-						cout<< "Usage: List [by/only] [name/device/[device type]]\n";
-					}
+				case 2://Sort Name
 					break;
-				case Command::add:
-					arg1=RSHash(UserInput,4)%10000;
-					cout<<arg1<<'\n';
-					break;
-				case Command::view:
+				case 3://Sort Type,Name
 					//
 					break;
-				
-				case Command::quit:
-				case Command::exit:
+				case 4://View
+					//
+					break;
+				case 5://Add
+					//
+					break;
+				case 9://Quit
 					active=false;
 					break;
 				default:
+					//Search here
+
+					//else
 					invalid=true;
 					break;
 				}

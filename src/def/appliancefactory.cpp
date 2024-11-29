@@ -1,6 +1,6 @@
 #include "../headers/appliancefactory.h"
 
-Appliance* newAppliance(Devices::AppType t){
+Appliance* ApplianceFactory::newAppliance(Devices::AppType t,string Name,std::istream& i){
 	Appliance* out=nullptr;
 	switch(t){
 		case Devices::Light:

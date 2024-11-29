@@ -58,4 +58,7 @@ namespace Rider{
 		o<<t.Minutes;
 		return o;
 	}
+	std::ostream& operator||(std::ostream& o,Time& t){
+		//dump to file
+	}
 };

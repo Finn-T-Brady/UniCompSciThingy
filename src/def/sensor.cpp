@@ -1,5 +1,10 @@
 #include "../headers/appliances.h"
-#include <ctime>
+
+
+enum Sensor::SensType:int{
+	Humidity=0,
+	Temperature=1
+};
 
 int Sensor::OCF(){
 	return dataView();
@@ -12,9 +17,11 @@ int Sensor::dataView(){
 	for(int n=1;n<4;n++){
 		temp[n]=temp[n-1]+(std::rand()&7)-3;
 	}
-	humi[0]=(std::rand()&7);
+	humi[0]=70+(std::rand()&15);
 	for(int n=1;n<4;n++){
-		humi[n]=humi[n-1]+(std::rand()&3);
+		humi[n]=humi[n-1]+(std::rand()&7)-4;
+		if(humi[n]>90)humi[n]=94;
+		else if(humi[n]<70)humi[n]=70;
 	}
 	std::cout<<"[T-4 ~ T-0]\n";
 	std::cout<<"Temperature:";
@@ -30,4 +37,9 @@ int Sensor::dataView(){
 	std::free(temp);
 	std::free(humi);
 	return 0;
+}
+
+std::ostream& operator<<(std::ostream& o,Sensor& s){
+	o<<"awawa";
+	return o;
 }
