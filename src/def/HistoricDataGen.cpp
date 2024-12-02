@@ -1,4 +1,4 @@
-#include "../headers/appliances.h"
+#include "../headers/HistoricDataGen.h"
 
 int HistoricDataGen::dataView(int range){
 	int* data[this->nTypes()];

@@ -1,11 +1,13 @@
 #pragma once
 #include <iostream>
 #include "time.h"
+#include "SleepTimer.h"
+#include "HistoricDataGen.h"
 
 namespace Devices{
 	enum AppType{
 		Light=0,
-		Sensor,
+		Sensor=1,
 		Speaker,
 		Thermostat,
 		Socket,
@@ -23,6 +25,7 @@ class Appliance{
 		int rename(std::string NewName);
 		std::string getName();
 		
+		int menuLoop();
 		virtual int menu()=0;
 		virtual int dump(std::ostream& o)=0;
 };
@@ -64,18 +67,6 @@ class Schedule : public Toggleable{
 		bool timeState(Rider::Time curr);
 };
 
-//Does not inherit from Appliance
-//Nothing to serialize
-class HistoricDataGen{		
-	protected:
-		virtual int initCall(int n)=0;
-		virtual int progCall(int n, int d)=0;
-		virtual int nTypes()=0;
-		virtual std::string dName(int n)=0;
-	public:
-		int dataView(int range);
-};
-
 //Serialiseable data:
 //-Name,
 //-Type,
@@ -96,8 +87,8 @@ class Sensor : public Appliance,public HistoricDataGen{
 		static constexpr int (*dataProg[dataTypes])(int)={TempProg,HumiProg};
 	public:
 		int OCF();
-		int dump(std::ostream& o);
 		int menu();
+		int dump(std::ostream& o);
 };
 
 //Serialiseable data
@@ -121,24 +112,28 @@ class Speaker : public ToggleWithPercent{
 //-Type
 //-On
 //-Level
-class Light : public ToggleWithPercent{
+//-Timer
+class Light : public ToggleWithPercent,public SleepTimer{
 	public:
 		int setLevel(int p);
 		int getLevel();
 		int setOn(bool s);
 		bool isOn();
+		int menu();
 		int dump(std::ostream& o);
 };
 
 //Serialiseable data
 //-Name
 //-Type
+//-Boost
 //-Enabled
+//-Schedule Enabled
 //-On time
 //-Off time
 class Thermostat : public Schedule{
 	private:
-		bool Boost;//Will not be serialised
+		bool Boost;
 	public:
 		int setBoost(bool b){
 			Boost=b;
@@ -150,22 +145,33 @@ class Thermostat : public Schedule{
 //Serialiseable data
 //-Name
 //-Type
-class Socket : public Schedule,public HistoricDataGen{
+//-Enabled
+//-Schedule Enabled
+//-On time
+//-Off time
+class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 	private:
 		int nTypes();
 		std::string dName(int n);
 		int initCall(int n);
 		int progCall(int n,int d);
 	public:
-		Socket();
 		int menu();
 		int dump(std::ostream& o);
 };
 
+//Serialiseable data
+//-Name
+//-Type
+//-Enabled
+//-Schedule Enable
+//-On time
+//-Off time
 class Valve : public Schedule{
 	private:
-		//
+		int temperature;
 	public:
 		int getCurrentTemp();
+		int menu();
 		int dump(std::ostream& o);
 };

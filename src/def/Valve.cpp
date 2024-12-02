@@ -1,8 +1,17 @@
 #include "../headers/appliances.h"
+#include <iostream>
 
 int Valve::getCurrentTemp(){
-	int* a=(int*)std::malloc(1);
-	int b=(int)a;
-	std::free(a);
-	return b&63;
+	return 40+40*this->getState();
+}
+
+int menu(){
+	//
+	//
+	return 0;
+}
+
+int dump(std::ostream& o){
+	//
+	return 0;
 }

@@ -11,11 +11,6 @@ using namespace std;
 
 int main(){
 	std::srand(std::time(0));
-	
-	Socket* J = new Socket();
-
-	J->dataView(6);
-	return 0;
 
 	vector<Appliance*> Devices;
 	

@@ -11,6 +11,11 @@ std::string Appliance::getName(){
 	return this->DevName;
 }
 
+int Appliance::menuLoop(){
+	while(!this->menu());
+	return 0;
+}
+
 //Toggleable
 int Toggleable::OCF(){
 	this->state^=true;
