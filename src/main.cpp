@@ -12,9 +12,9 @@ using namespace std;
 int main(){
 	std::srand(std::time(0));
 	
-	Sensor* J = new Sensor();
+	Socket* J = new Socket();
 
-	J->OCF();
+	J->dataView(6);
 	return 0;
 
 	vector<Appliance*> Devices;

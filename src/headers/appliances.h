@@ -61,10 +61,11 @@ class Schedule : public Toggleable{
 	public:
 		int setSchedule(Rider::Time on,Rider::Time off);
 		int disableSchedule();
-		bool timeState(Rider::Time time);
+		bool timeState(Rider::Time curr);
 };
 
 //Does not inherit from Appliance
+//Nothing to serialize
 class HistoricDataGen{		
 	protected:
 		virtual int initCall(int n)=0;
@@ -149,11 +150,15 @@ class Thermostat : public Schedule{
 //Serialiseable data
 //-Name
 //-Type
-class Socket : public Schedule{
+class Socket : public Schedule,public HistoricDataGen{
 	private:
-		//
+		int nTypes();
+		std::string dName(int n);
+		int initCall(int n);
+		int progCall(int n,int d);
 	public:
-		//
+		Socket();
+		int menu();
 		int dump(std::ostream& o);
 };
 

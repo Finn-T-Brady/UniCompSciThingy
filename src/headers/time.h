@@ -8,6 +8,7 @@ namespace Rider{
 			short Hours;//24 hour
 			short Minutes;
 		public:
+			Time();
 			Time(short m);
 			Time(short h,short m);
 			int pass(short m);

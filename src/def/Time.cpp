@@ -4,6 +4,10 @@
 
 
 namespace Rider{
+	Time::Time(){
+		Hours=0;
+		Minutes=0;
+	}
 	Time::Time(short m){
 		Hours=m/60;
 		Hours=Hours%24;
