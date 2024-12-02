@@ -12,6 +12,12 @@ using namespace std;
 int main(){
 	std::srand(std::time(0));
 	
+	Sensor* J = new Sensor();
+
+	J->OCF();
+	cout<<"AAAA";
+	return 0;
+
 	vector<Appliance*> Devices;
 	
 	string UserInput;

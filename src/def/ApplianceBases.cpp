@@ -36,7 +36,7 @@ int ToggleWithPercent::getPercent(){
 }
 
 //Schedule
-int Schedule::setSchedule(int on,int off){
+int Schedule::setSchedule(Rider::Time on,Rider::Time off){
 	this->scheduleOn=on;
 	this->scheduleOff=off;
 	this->scheduleEnabled=true;
@@ -46,7 +46,7 @@ int Schedule::disableSchedule(){
 	this->scheduleEnabled=false;
 	return 0;
 }
-int Schedule::timeUpdate(int time){
+bool Schedule::timeState(Rider::Time time){
 	//
 	return 0;
 }

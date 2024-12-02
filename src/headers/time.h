@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace Rider{
-	class Time{
+	class Time{//IWAE
 		private:
 			short Hours;//24 hour
 			short Minutes;

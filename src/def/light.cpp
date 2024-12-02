@@ -12,6 +12,9 @@ int Light::setOn(bool s){
 }
 bool Light::isOn(){
 	return this->getState();
-
+}
 int Light::dump(std::ostream& o){
+	//dump to ostream
+	return 0;
+}
 	
