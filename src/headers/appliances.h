@@ -65,14 +65,12 @@ class Schedule : public Toggleable{
 };
 
 //Does not inherit from Appliance
-class HistoricDataGen{
-	private:
-		static const int dataTypes=0;
-		const std::string dataNames[dataTypes]={};
-		int (*dataInit[dataTypes])(void);
-		int (*dataProg[dataTypes])(int);
+class HistoricDataGen{		
 	protected:
-		virtual int getTypes();
+		virtual int initCall(int n)=0;
+		virtual int progCall(int n, int d)=0;
+		virtual int nTypes()=0;
+		virtual std::string dName(int n)=0;
 	public:
 		int dataView(int range);
 };
@@ -82,14 +80,19 @@ class HistoricDataGen{
 //-Type,
 class Sensor : public Appliance,public HistoricDataGen{
 	private:
-		static const int dataTypes=2;
+		const static int dataTypes=2;
+		int nTypes();
+		std::string dName(int n);
 		const std::string dataNames[dataTypes]={"Temperature:","Humidity:   "};
+		int initCall(int n);
+		int progCall(int n,int d);
+
 		static int TempInit();
 		static int HumiInit();
 		static int TempProg(int x);
 		static int HumiProg(int x);
-		int (*dataInit[dataTypes])(void)={TempInit,HumiInit};
-		int (*dataProg[dataTypes])(int)={TempProg,HumiProg};
+		static constexpr int (*dataInit[dataTypes])(void)={TempInit,HumiInit};
+		static constexpr int (*dataProg[dataTypes])(int)={TempProg,HumiProg};
 	public:
 		int OCF();
 		int dump(std::ostream& o);

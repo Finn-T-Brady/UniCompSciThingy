@@ -15,7 +15,6 @@ int main(){
 	Sensor* J = new Sensor();
 
 	J->OCF();
-	cout<<"AAAA";
 	return 0;
 
 	vector<Appliance*> Devices;

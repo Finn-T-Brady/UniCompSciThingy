@@ -1,7 +1,23 @@
 #include "../headers/appliances.h"
 
+constexpr int (*Sensor::dataInit[])(void);
+constexpr int (*Sensor::dataProg[])(int);
+
 int Sensor::OCF(){
 	return dataView(4);
+}
+
+int Sensor::nTypes(){
+	return this->dataTypes;
+}
+std::string Sensor::dName(int n){
+	return dataNames[n];
+}
+int Sensor::initCall(int n){
+	return dataInit[n]();
+}
+int Sensor::progCall(int n,int d){
+	return dataProg[n](d);
 }
 
 int Sensor::TempInit(){
