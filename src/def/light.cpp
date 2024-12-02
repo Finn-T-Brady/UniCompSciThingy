@@ -14,7 +14,7 @@ bool Light::isOn(){
 	return this->getState();
 }
 
-int menu(){
+int Light::menu(){
 	//
 	return 0;
 }

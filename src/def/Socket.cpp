@@ -1,7 +1,4 @@
 #include "../headers/appliances.h"
-Socket::Socket(){
-
-}
 
 int Socket::nTypes(){
 	return 1;

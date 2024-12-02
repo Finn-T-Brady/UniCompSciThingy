@@ -25,7 +25,6 @@ class Appliance{
 		int rename(std::string NewName);
 		std::string getName();
 		
-		int menuLoop();
 		virtual int menu()=0;
 		virtual int dump(std::ostream& o)=0;
 };

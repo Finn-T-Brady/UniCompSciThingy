@@ -5,13 +5,13 @@ int Valve::getCurrentTemp(){
 	return 40+40*this->getState();
 }
 
-int menu(){
+int Valve::menu(){
 	//
 	//
 	return 0;
 }
 
-int dump(std::ostream& o){
+int Valve::dump(std::ostream& o){
 	//
 	return 0;
 }
