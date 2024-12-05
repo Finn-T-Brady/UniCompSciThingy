@@ -14,10 +14,6 @@ bool Light::isOn(){
 	return this->getState();
 }
 
-int Light::menu(){
-	//
-	return 0;
-}
 int Light::dump(std::ostream& o){
 	//dump to ostream
 	return 0;

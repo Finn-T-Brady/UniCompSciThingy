@@ -1,5 +1,7 @@
 #include "../headers/appliances.h"
 
+#include <string>
+
 constexpr int (*Sensor::dataInit[])(void);
 constexpr int (*Sensor::dataProg[])(int);
 
@@ -36,9 +38,26 @@ int Sensor::HumiProg(int x){
 	return out;
 }
 
-int Sensor::menu(){
-	//
-	return 0;
+const std::string menuRead="{}\n-Sensor\n\n0:Exit\n1:Rename\n2:View data\n2 [range]:View data\n9:Delete\n";
+std::string& Sensor::menuText(){
+	return std::format(menuRead,this->getName());
+}
+int Sensor::menuParse(std::string& UserInput){
+	int exitcode=0;
+	int p=0;
+	switch(UserInput[0]-'0'){
+		case 2:
+			while(UserInput[p]&&UserInput[0]!=' ')++p;
+			while(UserInput[p]&&UserInput[0]==' ')++p;
+			UserInput.erase(0,p-1);
+			if('0'<=UserInput[0] && UserInput[0]<='9')dataView(atoi(UserInput.c_str()));
+			else dataView(4);
+			break;
+		default:
+			exitcode=-1;
+			break;
+	}
+	return exitcode;
 }
 int Sensor::dump(std::ostream& o){
 	//

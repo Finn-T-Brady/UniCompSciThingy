@@ -23,3 +23,13 @@ int Speaker::setVolume(int newVol){
 int Speaker::getVolume(){
 	return this->getPercent();
 }
+
+int Speaker::menu(){
+	//
+	return 0;
+}
+
+int Speaker::dump(std::ostream& o){
+	//
+	return 0;
+}

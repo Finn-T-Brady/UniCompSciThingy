@@ -5,7 +5,7 @@
 #include "HistoricDataGen.h"
 
 namespace Devices{
-	enum AppType{
+	enum AppType:int{
 		Light=0,
 		Sensor=1,
 		Speaker,
@@ -20,12 +20,15 @@ namespace Devices{
 class Appliance{
 	private:
 		std::string DevName;
+	protected:
+		virtual std::string& menuText()=0;
+		virtual int menuParse(std::string& UserInput)=0;
 	public:
 		virtual int OCF()=0;
 		int rename(std::string NewName);
 		std::string getName();
 		
-		virtual int menu()=0;
+		virtual int menu() final;
 		virtual int dump(std::ostream& o)=0;
 };
 
@@ -71,6 +74,10 @@ class Schedule : public Toggleable{
 //-Type,
 class Sensor : public Appliance,public HistoricDataGen{
 	private:
+		static const std::string menuRead;
+		std::string& menuText();
+		int menuParse(std::string& UserInput);
+
 		const static int dataTypes=2;
 		int nTypes();
 		std::string dName(int n);
@@ -86,7 +93,6 @@ class Sensor : public Appliance,public HistoricDataGen{
 		static constexpr int (*dataProg[dataTypes])(int)={TempProg,HumiProg};
 	public:
 		int OCF();
-		int menu();
 		int dump(std::ostream& o);
 };
 
@@ -118,7 +124,6 @@ class Light : public ToggleWithPercent,public SleepTimer{
 		int getLevel();
 		int setOn(bool s);
 		bool isOn();
-		int menu();
 		int dump(std::ostream& o);
 };
 
@@ -134,10 +139,7 @@ class Thermostat : public Schedule{
 	private:
 		bool Boost;
 	public:
-		int setBoost(bool b){
-			Boost=b;
-			return 0;
-		}
+		int setBoost(bool b);
 		int dump(std::ostream& o);
 };
 
@@ -155,7 +157,6 @@ class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 		int initCall(int n);
 		int progCall(int n,int d);
 	public:
-		int menu();
 		int dump(std::ostream& o);
 };
 
@@ -171,6 +172,5 @@ class Valve : public Schedule{
 		int temperature;
 	public:
 		int getCurrentTemp();
-		int menu();
 		int dump(std::ostream& o);
 };
