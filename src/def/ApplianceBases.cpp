@@ -36,9 +36,11 @@ int Appliance::menu(){
 					break;
 				case 1:
 					std::cout<<"Enter Name:";
+					std::getline(std::cin,UserInput);
+					std::cout<<"\n!!!\n"<<UserInput<<"\n!!!\n";
 					std::find_if(Globals::get()->Devices.begin(),Globals::get()->Devices.end(),[UserInput](Appliance* t){return t->getName()==UserInput;});
-					if(res==Globals::get()->Devices.end())this->rename(UserInput);
-					else std::cout<<"Name unavailable\n";
+					if(res!=Globals::get()->Devices.end())std::cout<<"Name unavailable\n";
+					else this->rename(UserInput);
 					break;
 				case 9:
 					std::cout<<"Are you sure? [Y/n]\n";
@@ -61,11 +63,11 @@ int Appliance::menu(){
 //Toggleable
 int Toggleable::OCF(){
 	this->state^=true;
-	return this->state;
+	return 0;
 }
 int Toggleable::setState(bool NewState){
 	this->state=NewState;
-	return NewState;
+	return 0;
 }
 bool Toggleable::getState(){
 	return this->state;
@@ -74,9 +76,8 @@ bool Toggleable::getState(){
 //ToggleWithPercent
 int ToggleWithPercent::setPercent(int newPercent){
 	if(0>newPercent || newPercent>100)return -1;
-	int old=this->percentage;
 	this->percentage=newPercent;
-	return old;
+	return 0;
 }
 int ToggleWithPercent::getPercent(){
 	return this->percentage;
@@ -89,10 +90,21 @@ int Schedule::setSchedule(Rider::Time on,Rider::Time off){
 	this->scheduleEnabled=true;
 	return 0;
 }
-int Schedule::disableSchedule(){
-	this->scheduleEnabled=false;
+int Schedule::setEnabled(bool n){
+	scheduleEnabled=n;
 	return 0;
 }
+bool Schedule::getEnabled(){
+	return scheduleEnabled;
+}
+
+Rider::Time& Schedule::getOn(){
+	return scheduleOn;
+}
+Rider::Time& Schedule::getOff(){
+	return scheduleOff;
+}
+
 bool Schedule::timeState(Rider::Time time){
 	//
 	return 0;

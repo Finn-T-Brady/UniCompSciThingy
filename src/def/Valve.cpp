@@ -5,7 +5,13 @@ int Valve::getCurrentTemp(){
 	return 40+40*this->getState();
 }
 
-int Valve::menu(){
+
+std::string Valve::menuText(){
+	//
+	return "";
+}
+
+int Valve::menuParse(std::string& UserInput){
 	//
 	//
 	return 0;

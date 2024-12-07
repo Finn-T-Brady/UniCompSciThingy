@@ -61,7 +61,7 @@ int main(){
 					p=0;
 					while(UserInput[p]!=' ' && UserInput[p])++p;
 					while(UserInput[p]==' ' && UserInput[p])++p;
-					UserInput.erase(0,p-1);
+					UserInput.erase(0,p);
 					res = find_if(Devices.begin(),Devices.end(),findName);
 					if(res!=Devices.end()){
 						exitcode = (*res)->menu();

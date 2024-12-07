@@ -14,7 +14,14 @@ int Socket::progCall(int n,int d){
 	return d+(std::rand()&255)-120;
 }
 
-int Socket::menu(){
+const std::string Socket::menuFormat="";
+
+std::string Socket::menuText(){
+	//
+	return "";
+}
+
+int Socket::menuParse(std::string& UserInput){
 	//
 	return 0;
 }

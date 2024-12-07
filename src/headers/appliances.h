@@ -21,7 +21,7 @@ class Appliance{
 	private:
 		std::string DevName;
 	protected:
-		virtual std::string& menuText()=0;
+		virtual std::string menuText()=0;
 		virtual int menuParse(std::string& UserInput)=0;
 	public:
 		virtual int OCF()=0;
@@ -63,9 +63,13 @@ class Schedule : public Toggleable{
 		bool scheduleEnabled;
 		Rider::Time scheduleOn;
 		Rider::Time scheduleOff;
+	protected:
+		Rider::Time& getOn();
+		Rider::Time& getOff();
 	public:
 		int setSchedule(Rider::Time on,Rider::Time off);
-		int disableSchedule();
+		int setEnabled(bool n);
+		bool getEnabled();
 		bool timeState(Rider::Time curr);
 };
 
@@ -74,8 +78,7 @@ class Schedule : public Toggleable{
 //-Type,
 class Sensor : public Appliance,public HistoricDataGen{
 	private:
-		static const std::string menuRead;
-		std::string& menuText();
+		std::string menuText();
 		int menuParse(std::string& UserInput);
 
 		const static int dataTypes=2;
@@ -102,6 +105,11 @@ class Sensor : public Appliance,public HistoricDataGen{
 //-Playing,
 //-Volume
 class Speaker : public ToggleWithPercent{
+	private:
+		static const std::string menuFormat;
+		static const std::string stateFormat[2];
+		std::string menuText();
+		int menuParse(std::string& UserInput);
 	public:
 		enum SpeakerState:bool;
 		int Play();
@@ -119,6 +127,10 @@ class Speaker : public ToggleWithPercent{
 //-Level
 //-Timer
 class Light : public ToggleWithPercent,public SleepTimer{
+	private:
+		static const std::string menuFormat;
+		std::string menuText();
+		int menuParse(std::string& UserInput);
 	public:
 		int setLevel(int p);
 		int getLevel();
@@ -131,12 +143,17 @@ class Light : public ToggleWithPercent,public SleepTimer{
 //-Name
 //-Type
 //-Boost
-//-Enabled
+//-On
 //-Schedule Enabled
 //-On time
 //-Off time
 class Thermostat : public Schedule{
 	private:
+		static const std::string stateFormat[2];
+		static const std::string menuFormat;
+		std::string menuText();
+		int menuParse(std::string& UserInput);
+
 		bool Boost;
 	public:
 		int setBoost(bool b);
@@ -152,6 +169,10 @@ class Thermostat : public Schedule{
 //-Off time
 class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 	private:
+		static const std::string menuFormat;
+		std::string menuText();
+		int menuParse(std::string& UserInput);
+
 		int nTypes();
 		std::string dName(int n);
 		int initCall(int n);
@@ -169,6 +190,9 @@ class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 //-Off time
 class Valve : public Schedule{
 	private:
+		std::string menuText();
+		int menuParse(std::string& UserInput);
+
 		int temperature;
 	public:
 		int getCurrentTemp();

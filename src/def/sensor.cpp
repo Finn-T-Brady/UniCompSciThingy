@@ -38,9 +38,12 @@ int Sensor::HumiProg(int x){
 	return out;
 }
 
-const std::string menuRead="{}\n-Sensor\n\n0:Exit\n1:Rename\n2:View data\n2 [range]:View data\n9:Delete\n";
-std::string& Sensor::menuText(){
-	return std::format(menuRead,this->getName());
+std::string Sensor::menuText(){
+	std::string out;
+	out.reserve(70);
+	out+=getName();
+	out+="\n-Sensor\n\n0:Exit\n1:Rename\n2:View data\n2 [range]:View data\n9:Delete\n";
+	return out;
 }
 int Sensor::menuParse(std::string& UserInput){
 	int exitcode=0;
