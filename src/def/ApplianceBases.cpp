@@ -37,10 +37,9 @@ int Appliance::menu(){
 				case 1:
 					std::cout<<"Enter Name:";
 					std::getline(std::cin,UserInput);
-					std::cout<<"\n!!!\n"<<UserInput<<"\n!!!\n";
-					std::find_if(Globals::get()->Devices.begin(),Globals::get()->Devices.end(),[UserInput](Appliance* t){return t->getName()==UserInput;});
-					if(res!=Globals::get()->Devices.end())std::cout<<"Name unavailable\n";
-					else this->rename(UserInput);
+					res=std::find_if(Globals::get()->Devices.begin(),Globals::get()->Devices.end(),[UserInput](Appliance* t){return t->getName()==UserInput;});
+					if(res==Globals::get()->Devices.end()) this->rename(UserInput);
+					else std::cout<<"Name Unavailable\n\n";
 					break;
 				case 9:
 					std::cout<<"Are you sure? [Y/n]\n";
