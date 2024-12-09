@@ -15,12 +15,13 @@
 
 using namespace std;
 
+
 int main(){
 	std::srand(std::time(0));
 	Globals::init();
 
 	vector<Appliance*>& Devices=Globals::get()->Devices;
-
+	
 	string UserInput;
 
 	bool invalid=false;
@@ -86,8 +87,11 @@ int main(){
 						p=UserInput[0]-'1';
 						cout<<"Enter name:";
 						getline(cin,UserInput);
-						temp=ApplianceFactory::newAppliance(p,UserInput);
-						Devices.push_back(temp);
+						res=find_if(Devices.begin(),Devices.end(),findName);
+						if(res==Devices.end()){
+							temp=ApplianceFactory::newAppliance(p,UserInput);
+							Devices.push_back(temp);
+						}else cout<<"Name Unavailable\n";
 					}
 					break;
 				case 9://Quit

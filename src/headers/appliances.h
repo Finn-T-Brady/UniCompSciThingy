@@ -185,6 +185,7 @@ class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 //-Name
 //-Type
 //-Enabled
+//-Temperature
 //-Schedule Enable
 //-On time
 //-Off time

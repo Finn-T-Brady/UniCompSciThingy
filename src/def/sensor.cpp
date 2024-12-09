@@ -41,6 +41,7 @@ int Sensor::HumiProg(int x){
 std::string Sensor::menuText(){
 	std::string out;
 	out.reserve(70);
+	out+='-';
 	out+=getName();
 	out+="\n-Sensor\n\n0:Exit\n1:Rename\n2:View data\n2 [range]:View data\n9:Delete\n";
 	return out;

@@ -31,11 +31,11 @@ std::string Speaker::menuText(){
 	std::string out;
 	out.reserve(150);
 	out+=getName();
-	out+="\n-Speaker\n\n  ";
+	out+="\n-Speaker\n  ";
 	out+=stateFormat[isPlaying()];
 	out+="\n  Volume:";
-	out+=getVolume();
-	out+="%\n\n0:Exit\n1:Rename\n2:Toggle play\n3:Play\n4:Pause\n5 [vol]:Change volume\n9:Delete\n";
+	out+=std::to_string(getVolume());
+	out+="%\n\n0:Exit\n1:Rename\n2:Toggle play\n3:Play\n4:Pause\n5 [vol(%)]:Change volume\n9:Delete\n";
 	return out;
 }
 

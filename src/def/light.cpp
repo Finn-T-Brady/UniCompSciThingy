@@ -25,12 +25,12 @@ std::string Light::menuText(){
 	out+=getName();
 	out+="\n-Light\n  Output:";
 	if(isOn()){
-		out+=getLevel();
+		out+=std::to_string(getLevel());
 		out+='%';
 	}else out+="off";
 	out+="\nTimer:";
-	out+=getTimer();
-	out+="m\n\n0:Exit\n1:Rename\n2:Toggle\n3 [Level]:Set Level\n4 [Time(m)]\n9:Delete\n";
+	out+=std::to_string(getTimer());
+	out+="m\n\n0:Exit\n1:Rename\n2:Toggle\n3 [Level(%)]:Set Level\n4 [Time(m)]\n9:Delete\n";
 	return out;
 }
 

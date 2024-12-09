@@ -17,7 +17,10 @@ int Socket::progCall(int n,int d){
 const std::string Socket::menuFormat="";
 
 std::string Socket::menuText(){
-	//
+	std::string out;
+	out.reserve(100);
+	out+=getName();
+	out+="\n -Socket\nEnabled";
 	return "";
 }
 

@@ -7,7 +7,14 @@ int Valve::getCurrentTemp(){
 
 
 std::string Valve::menuText(){
-	//
+	std::string out;
+	out.reserve(100);
+	out+=getName();
+	out+="\n-Valve\n  Enabled:";
+	//out+=stateFormat[getEnabled()];
+	out+="\n  Temperature:";
+	out+=std::to_string(temperature);
+	out+="°C\n";
 	return "";
 }
 
