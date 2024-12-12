@@ -25,6 +25,7 @@ int Appliance::menu(){
 	std::string UserInput;
 	std::vector<Appliance*>::iterator res;
 	while(running){
+		std::cout<<"\n--Device Submenu--\n";
 		std::cout<<menuText();
 		do{
 			invalid=false;
@@ -83,12 +84,6 @@ int ToggleWithPercent::getPercent(){
 }
 
 //Schedule
-int Schedule::setSchedule(Rider::Time on,Rider::Time off){
-	this->scheduleOn=on;
-	this->scheduleOff=off;
-	this->scheduleEnabled=true;
-	return 0;
-}
 int Schedule::setEnabled(bool n){
 	scheduleEnabled=n;
 	return 0;

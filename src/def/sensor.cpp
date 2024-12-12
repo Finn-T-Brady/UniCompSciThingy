@@ -1,4 +1,5 @@
 #include "../headers/appliances.h"
+#include "../miscFunctions.h"
 
 #include <string>
 
@@ -41,7 +42,6 @@ int Sensor::HumiProg(int x){
 std::string Sensor::menuText(){
 	std::string out;
 	out.reserve(70);
-	out+='-';
 	out+=getName();
 	out+="\n-Sensor\n\n0:Exit\n1:Rename\n2:View data\n2 [range]:View data\n9:Delete\n";
 	return out;
@@ -51,9 +51,9 @@ int Sensor::menuParse(std::string& UserInput){
 	int p=0;
 	switch(UserInput[0]-'0'){
 		case 2:
-			while(UserInput[p]&&UserInput[0]!=' ')++p;
-			while(UserInput[p]&&UserInput[0]==' ')++p;
-			UserInput.erase(0,p-1);
+			p=firstArg(UserInput);
+			UserInput.erase(0,p);
+			std::cout<<UserInput;
 			if('0'<=UserInput[0] && UserInput[0]<='9')dataView(atoi(UserInput.c_str()));
 			else dataView(4);
 			break;

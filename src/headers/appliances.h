@@ -67,7 +67,6 @@ class Schedule : public Toggleable{
 		Rider::Time& getOn();
 		Rider::Time& getOff();
 	public:
-		int setSchedule(Rider::Time on,Rider::Time off);
 		int setEnabled(bool n);
 		bool getEnabled();
 		bool timeState(Rider::Time curr);
