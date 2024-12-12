@@ -17,9 +17,9 @@ std::string Thermostat::menuText(){
 	out+=getName();
 	out+="\n-Thermostat\n  State:";
 	out+=stateFormat[getState()||Boost];
-	out+="\n  Enabled:";
+	out+="\n  -Enabled:";
 	out+=stateFormat[getState()];
-	out+="\n  Boost:";
+	out+="\n  -Boost:";
 	out+=stateFormat[Boost];
 	out+="\n  Schedule:";
 	if(getEnabled()){
@@ -50,6 +50,7 @@ int Thermostat::menuParse(std::string& UserInput){
 			break;
 		case 5:
 			setBoost(false);
+			break;
 		case 6:
 			std::cout<<"Enter on time[hh:mm](24)\n>";
 			std::getline(std::cin,UserInput);
@@ -85,6 +86,11 @@ int Thermostat::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
+static Thermostat* read(std::istream&){
+	Thermostat* out=nullptr;
+	//
+	return out;
+}
 int Thermostat::dump(std::ostream& o){
 	//
 	return 0;

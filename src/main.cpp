@@ -19,7 +19,7 @@ using namespace std;
 int main(){
 	std::srand(std::time(0));
 	Globals::init();
-
+	
 	vector<Appliance*>& Devices=Globals::get()->Devices;
 	
 	string UserInput;

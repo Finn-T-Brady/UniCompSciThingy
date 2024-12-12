@@ -68,7 +68,19 @@ int Speaker::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-int Speaker::dump(std::ostream& o){
+static Speaker* read(std::istream&){
+	Speaker* out=nullptr;
 	//
+	return out;
+}
+int Speaker::dump(std::ostream& o){
+	o<<Devices::Speaker;
+	o<<',';
+	o<<getName();
+	o<<',';
+	o<<isPlaying();
+	o<<',';
+	o<<getVolume();
+	o<<'\n';
 	return 0;
 }

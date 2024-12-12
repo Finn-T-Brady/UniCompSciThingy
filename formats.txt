@@ -1,0 +1,7 @@
+Formats
+Sensor :type,name,data
+Speaker:type,name,state,percent
+Light  :type,name,state,percent,timer
+Thermo :type,name,state,boost,scheduled,onH,onM,offH,offM
+Socket :type,name,state,scheduled,onH,onM,offH,offM,timer,data
+Valve  :type,name,state,scheduled,onH,onM,offH,offM

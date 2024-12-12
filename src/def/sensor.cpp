@@ -6,6 +6,11 @@
 constexpr int (*Sensor::dataInit[])(void);
 constexpr int (*Sensor::dataProg[])(int);
 
+Sensor::Sensor(){
+	setMax(48);
+	dataGen();
+}
+
 int Sensor::OCF(){
 	return dataView(4);
 }
@@ -63,7 +68,23 @@ int Sensor::menuParse(std::string& UserInput){
 	}
 	return exitcode;
 }
-int Sensor::dump(std::ostream& o){
+
+Sensor::~Sensor(){
+	this->del();
+}
+
+static Sensor* read(std::istream&){
+	Sensor* out=nullptr;
 	//
+	return out;
+}
+
+int Sensor::dump(std::ostream& o){
+	o<<Devices::Sensor;
+	o<<',';
+	o<<getName();
+	o<<',';
+	dataDump(o);
+	o<<'\n';	
 	return 0;
 }

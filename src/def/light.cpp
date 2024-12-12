@@ -64,6 +64,11 @@ int Light::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
+static Light* read(std::istream&){
+	Light* out=nullptr;
+	//
+	return out;
+}
 int Light::dump(std::ostream& o){
 	//dump to ostream
 	return 0;
