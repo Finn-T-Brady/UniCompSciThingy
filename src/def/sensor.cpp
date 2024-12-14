@@ -1,12 +1,15 @@
 #include "../headers/appliances.h"
 #include "../miscFunctions.h"
 
+#include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 constexpr int (*Sensor::dataInit[])(void);
 constexpr int (*Sensor::dataProg[])(int);
 
-Sensor::Sensor(){
+Sensor::Sensor():HistoricDataGen(){
 	setMax(48);
 	dataGen();
 }
@@ -58,7 +61,6 @@ int Sensor::menuParse(std::string& UserInput){
 		case 2:
 			p=firstArg(UserInput);
 			UserInput.erase(0,p);
-			std::cout<<UserInput;
 			if('0'<=UserInput[0] && UserInput[0]<='9')dataView(atoi(UserInput.c_str()));
 			else dataView(4);
 			break;
@@ -80,11 +82,13 @@ static Sensor* read(std::istream&){
 }
 
 int Sensor::dump(std::ostream& o){
-	o<<Devices::Sensor;
-	o<<',';
-	o<<getName();
-	o<<',';
-	dataDump(o);
-	o<<'\n';	
+	std::stringstream buf;
+	buf<<Devices::Sensor;
+	buf<<',';
+	buf<<getName();
+	buf<<',';
+	dataDump(buf);
+	buf<<'\n';
+	o<<buf.str();	
 	return 0;
 }

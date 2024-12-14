@@ -92,6 +92,14 @@ static Thermostat* read(std::istream&){
 	return out;
 }
 int Thermostat::dump(std::ostream& o){
-	//
+	o<<Devices::Thermostat<<',';
+	o<<getName()<<',';
+	o<<getState()<<',';
+	o<<Boost<<',';
+	o<<getEnabled()<<',';
+	o<<getOn().getHours()<<',';
+	o<<getOn().getMinutes()<<',';
+	o<<getOff().getHours()<<',';
+	o<<getOff().getMinutes()<<'\n';
 	return 0;
 }

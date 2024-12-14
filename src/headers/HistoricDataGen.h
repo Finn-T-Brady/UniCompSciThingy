@@ -13,6 +13,7 @@ class HistoricDataGen{
 		virtual int nTypes()=0;
 		virtual std::string dName(int n)=0;
 	public:
+		HistoricDataGen();
 		int dataGen();
 		int dataView(int range);
 		

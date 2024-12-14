@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <ctime>
 #include <string.h>
+#include <fstream>
 
 #include "headers/appliances.h"
 #include "headers/appliancefactory.h"
@@ -108,5 +109,12 @@ int main(){
 				}
 		}while(invalid);
 	}
+	ofstream file;
+	file.open(".devices");
+	
+	if(file.good()&&file.is_open()){
+		for_each(Devices.begin(),Devices.end(),[&file](Appliance* t){t->dump(file);file.flush();});
+	}else cout<<"Unable to write file\n";
+	file.close();
 	return 0;
 }

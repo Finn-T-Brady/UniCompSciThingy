@@ -1,6 +1,10 @@
 #include "../headers/appliances.h"
 #include "../miscFunctions.h"
 
+#include <iostream>
+#include <string>
+#include <sstream>
+
 int Socket::nTypes(){
 	return 1;
 }
@@ -15,7 +19,7 @@ int Socket::progCall(int n,int d){
 	return d+(std::rand()&255)-120;
 }
 
-Socket::Socket(){
+Socket::Socket():HistoricDataGen(){
 	setMax(24);
 	dataGen();
 }
@@ -92,6 +96,18 @@ static Socket* read(std::istream&){
 	return out;
 }
 int Socket::dump(std::ostream& o){
-	//
+	std::stringstream buf;
+	buf<<Devices::Socket<<',';
+	buf<<getName()<<',';
+	buf<<getState()<<',';
+	buf<<getEnabled()<<',';
+	buf<<getOn().getHours()<<',';
+	buf<<getOn().getMinutes()<<',';
+	buf<<getOff().getHours()<<',';
+	buf<<getOff().getMinutes()<<',';
+	buf<<getTimer()<<',';
+	dataDump(buf);
+	buf<<'\n';
+	o<<buf.str();
 	return 0;
 }

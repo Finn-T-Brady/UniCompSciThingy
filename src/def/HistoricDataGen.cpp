@@ -1,6 +1,11 @@
 #include "../headers/HistoricDataGen.h"
 #include <iostream>
 
+
+HistoricDataGen::HistoricDataGen(){
+	genned=false;
+}
+
 HistoricDataGen::setMax(int r){
 	if(genned)return 0;
 	rangeMax=r;
@@ -14,13 +19,9 @@ int HistoricDataGen::manual(int r,int** dat){
 	data=dat;
 	return 0;
 }
-/*int HistoricDataGen::manual(std::istream& i){
-	//
-	return 0;
-}*/
 
 int HistoricDataGen::dataGen(){
-	if(genned)return 0;
+	if(genned)std::cout<<"FUCK WHY GOD WHY";
 	int range=rangeMax;
 	data=(int**)std::malloc(this->nTypes()*sizeof(int*));
 	for(int n=0;n<this->nTypes();n++){

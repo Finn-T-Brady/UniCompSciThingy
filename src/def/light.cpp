@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 int Light::setLevel(int p){
 	if(p==0)return setOn(false);
@@ -70,7 +71,18 @@ static Light* read(std::istream&){
 	return out;
 }
 int Light::dump(std::ostream& o){
-	//dump to ostream
+	std::stringstream buf;
+	buf<<Devices::Light;
+	buf<<',';
+	buf<<getName();
+	buf<<',';
+	buf<<isOn();
+	buf<<',';
+	buf<<getLevel();
+	buf<<',';
+	buf<<getTimer();
+	buf<<'\n';
+	o<<buf.str();
 	return 0;
 }
 

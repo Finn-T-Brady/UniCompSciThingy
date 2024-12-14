@@ -30,6 +30,13 @@ static Speaker* read(std::istream&){
 	return out;
 }
 int Valve::dump(std::ostream& o){
-	//
+	o<<Devices::Valve<<',';
+	o<<getName()<<',';
+	o<<getState()<<',';
+	o<<getEnabled()<<',';
+	o<<getOn().getHours()<<',';
+	o<<getOn().getMinutes()<<',';
+	o<<getOff().getHours()<<',';
+	o<<getOff().getMinutes()<<',';
 	return 0;
 }
