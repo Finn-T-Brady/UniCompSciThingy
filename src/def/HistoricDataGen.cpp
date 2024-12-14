@@ -63,6 +63,8 @@ int HistoricDataGen::del(){//compiler got mad at me for using a deconstructor he
 }
 
 int HistoricDataGen::dataDump(std::ostream& o){
+	o<<this->nTypes();
+	o<<',';
 	o<<rangeMax;
 	for(int n=0;n<this->nTypes();n++){
 		o<<',';
