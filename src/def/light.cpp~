@@ -69,7 +69,7 @@ Light* Light::read(std::istream& i){
 	Light* out=new Light();
 	char nameRead;
 	std::string name;
-	name.reserve(10);
+	name.reserve(32);
 	while((nameRead=i.get())!=',')name+=nameRead;
 	name.shrink_to_fit();
 	out->rename(name);

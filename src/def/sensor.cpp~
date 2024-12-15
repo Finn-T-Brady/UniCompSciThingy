@@ -79,7 +79,7 @@ Sensor::~Sensor(){
 	this->del();
 }
 
-Sensor* Sensor::read(std::istream& i){
+Sensor* Sensor::read(std::istream&){
 	char buffer;
 	std::string name;
 	name.reserve(10);

@@ -8,7 +8,6 @@ class HistoricDataGen{
 	protected:
 		int setMax(int r);
 		int manual(int r,int** dat);
-		int manual(std::istream& i);
 		virtual int initCall(int n)=0;
 		virtual int progCall(int n, int d)=0;
 		virtual int nTypes()=0;

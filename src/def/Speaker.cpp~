@@ -79,7 +79,7 @@ Speaker* Speaker::read(std::istream& i){
 	out->setState(i.get()=='1');
 	i.ignore(1);
 	i.getline(buffer,5,'\n');
-	out->setPercent(atoi(buffer));
+	out->setPercentage(atoi(buffer));
 	return out;
 }
 

@@ -64,6 +64,5 @@ namespace Rider{
 	}
 	std::ostream& operator||(std::ostream& o,Time& t){
 		//dump to file
-		return o;
 	}
 };

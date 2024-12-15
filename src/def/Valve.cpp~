@@ -108,7 +108,7 @@ Valve* Valve::read(std::istream& i){
 	return out;
 }
 int Valve::dump(std::ostream& o){
-	std::stringstream buf;
+	std::stringstream buf
 	buf<<Devices::Valve<<',';
 	buf<<getName()<<',';
 	buf<<getState()<<',';

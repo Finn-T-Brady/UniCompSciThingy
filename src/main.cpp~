@@ -21,18 +21,17 @@ int main(){
 	std::srand(std::time(0));
 	Globals::init();
 	
-	vector<Appliance*>& Devices=Globals::get()->Devices;
-
 	string fName=".devices";
 
 	ifstream inFile;
 	inFile.open(fName);
 	if(inFile.good()&&inFile.is_open()){
 		while(inFile.peek()!=EOF){
-			Devices.push_back(ApplianceFactory::newAppliance(inFile));
+			//
 		}
 	}
 	inFile.close();
+	vector<Appliance*>& Devices=Globals::get()->Devices;
 	
 	string UserInput;
 

@@ -1,24 +1,27 @@
 #include "../headers/appliances.h"
-#include <iostream>
+#include "../headers/Time.h"
 #include "../miscFunctions.h"
+
+#include <iostream>
 #include <string>
-#include <sstream>
 
-
-int Valve::getCurrentTemp(){
-	return 20+60*this->getState();
+int Thermostat::setBoost(bool b){
+	Boost=b;
+	return 0;
 }
 
-std::string Valve::stateFormat[2]={"Off","On"};
-std::string Valve::menuText(){
+const std::string Thermostat::stateFormat[2]={"Off","On"};
+std::string Thermostat::menuText(){
 	std::string out;
-	out.reserve(100);
+	//out.reserve();
 	out+=getName();
-	out+="\n-Valve\n  Enabled:";
-	out+=stateFormat[getEnabled()];
-	out+="\n  Temperature:";
-	out+=std::to_string(getCurrentTemp());
-	out+="C\n  Schedule:";
+	out+="\n-Thermostat\n  State:";
+	out+=stateFormat[getState()||Boost];
+	out+="\n  -Enabled:";
+	out+=stateFormat[getState()];
+	out+="\n  -Boost:";
+	out+=stateFormat[Boost];
+	out+="\n  Schedule:";
 	if(getEnabled()){
 		out+=std::to_string(getOn().getHours());
 		out+=':';
@@ -28,11 +31,10 @@ std::string Valve::menuText(){
 		out+=':';
 		out+=std::to_string(getOff().getMinutes());
 	}else out+="Off";
-	out+="\n0:Exit\n1:Rename\n2:Turn on\n3:Turn off\n4:Set schedule\n5:Disable Schedule\n9:Delete\n";
+	out+="\n1:Rename\n2:Turn on\n3:Turn off\n4:Boost on\n5:Boost off\n6:Set schedule\n7:Disable schedule\n9:Delete\n";
 	return out;
 }
-
-int Valve::menuParse(std::string& UserInput){
+int Thermostat::menuParse(std::string& UserInput){
 	int exitcode=0;
 	int t[4];
 	bool valid;
@@ -44,6 +46,12 @@ int Valve::menuParse(std::string& UserInput){
 			setState(false);
 			break;
 		case 4:
+			setBoost(true);
+			break;
+		case 5:
+			setBoost(false);
+			break;
+		case 6:
 			std::cout<<"Enter on time[hh:mm](24)\n>";
 			std::getline(std::cin,UserInput);
 			valid=validTime(UserInput);
@@ -68,7 +76,7 @@ int Valve::menuParse(std::string& UserInput){
 			getOff().setTime(t[2],t[3]);
 			setEnabled(true);
 			break;
-		case 5:
+		case 7:
 			setEnabled(false);
 			break;
 		default:
@@ -78,44 +86,43 @@ int Valve::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-Valve* Valve::read(std::istream& i){
-	Valve* out=new Valve();
-	int t[2];
+Thermostat* Thermostat::read(std::istream& i){
+	Thermostat* out=new Thermostat();
 	char buffer[5];
+	int t[2];
 	std::string name;
 	name.reserve(10);
 	while((buffer[0]=i.get())!=',')name+=buffer[0];
 	name.shrink_to_fit();
 	out->rename(name);
-
 	out->setState(i.get()=='1');
+	i.ignore(1);
+	out->boost=(i.get()=='1');
 	i.ignore(1);
 	out->setEnabled(i.get()=='1');
 	i.ignore(1);
-	
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,',');
 	t[1]=atoi(buffer);
 	out->getOn().setTime(t[0],t[1]);
-		
+
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,'\n');
 	t[1]=atoi(buffer);
-	out->getOff().setTime(t[0],t[1]);
-
+	out->getOff().setTime(t[0],t[1])
 	return out;
 }
-int Valve::dump(std::ostream& o){
-	std::stringstream buf;
-	buf<<Devices::Valve<<',';
-	buf<<getName()<<',';
-	buf<<getState()<<',';
-	buf<<getEnabled()<<',';
-	buf<<getOn().getHours()<<',';
-	buf<<getOn().getMinutes()<<',';
-	buf<<getOff().getHours()<<',';
-	buf<<getOff().getMinutes()<<'\n';
+int Thermostat::dump(std::ostream& o){
+	o<<Devices::Thermostat<<',';
+	o<<getName()<<',';
+	o<<getState()<<',';
+	o<<Boost<<',';
+	o<<getEnabled()<<',';
+	o<<getOn().getHours()<<',';
+	o<<getOn().getMinutes()<<',';
+	o<<getOff().getHours()<<',';
+	o<<getOff().getMinutes()<<'\n';
 	return 0;
 }
