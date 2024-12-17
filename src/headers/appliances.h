@@ -42,6 +42,8 @@ class Toggleable : public Appliance{
 	protected:
 		int setState(bool nState);
 		bool getState();
+		Toggleable(bool s);
+		Toggleable();
 };
 
 //Serialiseable data
@@ -95,8 +97,8 @@ class Sensor : public Appliance,public HistoricDataGen{
 		static constexpr int (*dataInit[dataTypes])(void)={TempInit,HumiInit};
 		static constexpr int (*dataProg[dataTypes])(int)={TempProg,HumiProg};
 	public:
-		Sensor();
-		Sensor(std::string Name,std::istream& i);
+		Sensor(std::string name);
+		Sensor(std::istream& i);
 		~Sensor();
 
 
@@ -117,6 +119,9 @@ class Speaker : public Toggleable,public Percentage{
 		std::string menuText();
 		int menuParse(std::string& UserInput);
 	public:
+		Speaker(std::string name);
+		Speaker(std::istream& i);
+
 		enum SpeakerState:bool;
 		int Play();
 		int Pause();
@@ -140,6 +145,9 @@ class Light : public Toggleable,public Percentage,public SleepTimer{
 		std::string menuText();
 		int menuParse(std::string& UserInput);
 	public:
+		Light(std::string name);
+		Light(std::istream& i);
+
 		int setLevel(int p);
 		int getLevel();
 		int setOn(bool s);
@@ -166,6 +174,9 @@ class Thermostat : public Schedule{
 
 		bool Boost;
 	public:
+		Thermostat(std::string name);
+		Thermostat(std::istream& i);
+
 		int setBoost(bool b);
 		
 		static Thermostat* read(std::istream&);
@@ -191,7 +202,8 @@ class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 		int progCall(int n,int d);
 		Socket(bool gen);
 	public:
-		Socket();
+		Socket(std::string name);
+		Socket(std::istream& i);
 		~Socket();
 
 		static Socket* read(std::istream&);
@@ -212,6 +224,9 @@ class Valve : public Schedule{
 		std::string menuText();
 		int menuParse(std::string& UserInput);
 	public:
+		Valve(std::string name);
+		Valve(std::istream& i);
+
 		int getCurrentTemp();
 		
 		static Valve* read(std::istream&);

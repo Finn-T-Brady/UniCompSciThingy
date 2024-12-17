@@ -9,13 +9,10 @@
 constexpr int (*Sensor::dataInit[])(void);
 constexpr int (*Sensor::dataProg[])(int);
 
-Sensor::Sensor():HistoricDataGen(){
+Sensor::Sensor(std::string name):HistoricDataGen(){
+	this->rename(name);
 	setMax(48);
 	dataGen();
-}
-Sensor::Sensor(std::string Name,std::istream& i):HistoricDataGen(){
-	rename(Name);
-	manual(i);
 }
 
 int Sensor::OCF(){
@@ -79,14 +76,14 @@ Sensor::~Sensor(){
 	this->del();
 }
 
-Sensor* Sensor::read(std::istream& i){
+Sensor::Sensor(std::istream& i):HistoricDataGen(){
 	char buffer;
 	std::string name;
 	name.reserve(10);
 	while((buffer=i.get())!=',')name+=buffer;
 	name.shrink_to_fit();
-	Sensor* out = new Sensor(name,i);
-	return out;
+	this->rename(name);
+	this->manual(i);
 }
 
 int Sensor::dump(std::ostream& o){

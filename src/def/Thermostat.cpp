@@ -10,6 +10,11 @@ int Thermostat::setBoost(bool b){
 	return 0;
 }
 
+Thermostat::Thermostat(std::string name):Schedule(){
+	this->rename(name);
+	Boost=false;
+}
+
 const std::string Thermostat::stateFormat[2]={"Off","On"};
 std::string Thermostat::menuText(){
 	std::string out;
@@ -86,33 +91,31 @@ int Thermostat::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-Thermostat* Thermostat::read(std::istream& i){
-	Thermostat* out=new Thermostat();
+Thermostat::Thermostat(std::istream& i){	
 	char buffer[5];
 	int t[2];
 	std::string name;
 	name.reserve(10);
 	while((buffer[0]=i.get())!=',')name+=buffer[0];
 	name.shrink_to_fit();
-	out->rename(name);
-	out->setState(i.get()=='1');
+	this->rename(name);
+	this->setState(i.get()=='1');
 	i.ignore(1);
-	out->Boost=(i.get()=='1');
+	this->Boost=(i.get()=='1');
 	i.ignore(1);
-	out->setEnabled(i.get()=='1');
+	this->setEnabled(i.get()=='1');
 	i.ignore(1);
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,',');
 	t[1]=atoi(buffer);
-	out->getOn().setTime(t[0],t[1]);
+	this->getOn().setTime(t[0],t[1]);
 
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,'\n');
 	t[1]=atoi(buffer);
-	out->getOff().setTime(t[0],t[1]);
-	return out;
+	this->getOff().setTime(t[0],t[1]);
 }
 int Thermostat::dump(std::ostream& o){
 	o<<Devices::Thermostat<<',';

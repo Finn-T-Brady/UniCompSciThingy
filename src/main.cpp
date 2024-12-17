@@ -22,6 +22,7 @@ int main(){
 	Globals::init();
 	
 	vector<Appliance*>& Devices=Globals::get()->Devices;
+	Appliance* temp;
 
 	string fName=".devices";
 
@@ -29,7 +30,8 @@ int main(){
 	inFile.open(fName);
 	if(inFile.good()&&inFile.is_open()){
 		while(inFile.peek()!=EOF){
-			Devices.push_back(ApplianceFactory::newAppliance(inFile));
+			temp=ApplianceFactory::newAppliance(inFile);
+			if(temp!=nullptr)Devices.push_back(temp);
 		}
 	}
 	inFile.close();
@@ -40,8 +42,7 @@ int main(){
 	bool active=true;
 
 	bool subInvalid=false;
-
-	Appliance* temp;
+	
 	vector<Appliance*>::iterator res;
 	int p;
 	int exitcode;
@@ -102,7 +103,7 @@ int main(){
 						res=find_if(Devices.begin(),Devices.end(),findName);
 						if(res==Devices.end()){
 							temp=ApplianceFactory::newAppliance(p,UserInput);
-							Devices.push_back(temp);
+							if(temp!=nullptr)Devices.push_back(temp);
 						}else cout<<"Name Unavailable\n";
 					}
 					break;

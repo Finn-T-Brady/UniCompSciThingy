@@ -7,22 +7,22 @@ Appliance* ApplianceFactory::newAppliance(std::istream& i){
 	i.ignore(1);
 	switch(d){
 		case Devices::Light:
-			out=Light::read(i);
+			out=new Light(i);
 			break;
 		case Devices::Sensor:
-			out=Sensor::read(i);
+			out=new Sensor(i);
 			break;
 		case Devices::Speaker:
-			out=Speaker::read(i);
+			out=new Speaker(i);
 			break;
 		case Devices::Thermostat:
-			out=Thermostat::read(i);
+			out=new Thermostat(i);
 			break;
 		case Devices::Socket:
-			out=Socket::read(i);
+			out=new Socket(i);
 			break;
 		case Devices::Valve:
-			out=Valve::read(i);
+			out=new Valve(i);
 			break;
 		default:
 			break;
@@ -34,26 +34,25 @@ Appliance* ApplianceFactory::newAppliance(int t, std::string Name){
 	Appliance* out=nullptr;
 	switch(t){
 		case Devices::Light:
-			out=new Light();
+			out=new Light(Name);
 			break;
 		case Devices::Sensor:
-			out=new Sensor();
+			out=new Sensor(Name);
 			break;
 		case Devices::Speaker:
-			out=new Speaker();
+			out=new Speaker(Name);
 			break;
 		case Devices::Thermostat:
-			out=new Thermostat();
+			out=new Thermostat(Name);
 			break;
 		case Devices::Socket:
-			out=new Socket();
+			out=new Socket(Name);
 			break;
 		case Devices::Valve:
-			out=new Valve();
+			out=new Valve(Name);
 			break;
 		default:
 			break;
-	}
-	out->rename(Name);
+	}	
 	return out;
 }

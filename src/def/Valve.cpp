@@ -9,6 +9,10 @@ int Valve::getCurrentTemp(){
 	return 20+60*this->getState();
 }
 
+Valve::Valve(std::string name):Schedule(){
+	this->rename(name);
+}
+
 std::string Valve::stateFormat[2]={"Off","On"};
 std::string Valve::menuText(){
 	std::string out;
@@ -78,34 +82,31 @@ int Valve::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-Valve* Valve::read(std::istream& i){
-	Valve* out=new Valve();
+Valve::Valve(std::istream& i){
 	int t[2];
 	char buffer[5];
 	std::string name;
 	name.reserve(10);
 	while((buffer[0]=i.get())!=',')name+=buffer[0];
 	name.shrink_to_fit();
-	out->rename(name);
+	this->rename(name);
 
-	out->setState(i.get()=='1');
+	this->setState(i.get()=='1');
 	i.ignore(1);
-	out->setEnabled(i.get()=='1');
+	this->setEnabled(i.get()=='1');
 	i.ignore(1);
 	
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,',');
 	t[1]=atoi(buffer);
-	out->getOn().setTime(t[0],t[1]);
+	this->getOn().setTime(t[0],t[1]);
 		
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,'\n');
 	t[1]=atoi(buffer);
-	out->getOff().setTime(t[0],t[1]);
-
-	return out;
+	this->getOff().setTime(t[0],t[1]);
 }
 int Valve::dump(std::ostream& o){
 	std::stringstream buf;

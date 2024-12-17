@@ -19,18 +19,12 @@ int Socket::progCall(int n,int d){
 	return d+(std::rand()&255)-120;
 }
 
-Socket::Socket():HistoricDataGen(){
+Socket::Socket(std::string name):HistoricDataGen(),Schedule(){
+	this->rename(name);
 	setMax(24);
 	dataGen();
+	setTimer(0);
 }
-
-Socket::Socket(bool gen):HistoricDataGen(){
-	if(gen){
-		setMax(24);
-		dataGen();
-	}
-}
-
 
 Socket::~Socket(){
 	this->del();
@@ -111,40 +105,37 @@ int Socket::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-Socket* Socket::read(std::istream& i){
-	Socket* out=new Socket(false);
-
+Socket::Socket(std::istream& i):HistoricDataGen(){
 	int t[2];
 	char buffer[5];
 	std::string name;
 	name.reserve(10);
 	while((buffer[0]=i.get())!=',')name+=buffer[0];
 	name.shrink_to_fit();
-	out->rename(name);
+	this->rename(name);
 	
-	out->setState(i.get()=='1');
+	this->setState(i.get()=='1');
 	i.ignore(1);
 	
-	out->setEnabled(i.get()=='1');
+	this->setEnabled(i.get()=='1');
 	i.ignore(1);
 
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,',');
 	t[1]=atoi(buffer);
-	out->getOn().setTime(t[0],t[1]);
+	this->getOn().setTime(t[0],t[1]);
 		
 	i.getline(buffer,5,',');
 	t[0]=atoi(buffer);
 	i.getline(buffer,5,',');
 	t[1]=atoi(buffer);
-	out->getOff().setTime(t[0],t[1]);
+	this->getOff().setTime(t[0],t[1]);
 
 	i.getline(buffer,5,',');
-	out->setTimer(atoi(buffer));
+	this->setTimer(atoi(buffer));
 
-	out->manual(i);
-	return out;
+	this->manual(i);
 }
 int Socket::dump(std::ostream& o){
 	std::stringstream buf;

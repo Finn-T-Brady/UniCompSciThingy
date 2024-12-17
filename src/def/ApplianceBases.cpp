@@ -73,6 +73,11 @@ bool Toggleable::getState(){
 	return this->state;
 }
 
+Toggleable::Toggleable(bool s){
+	state=s;
+}
+Toggleable::Toggleable(){}
+
 //Percentage
 int Percentage::setPercent(int newPercent){
 	if(0>newPercent || newPercent>100)return -1;
@@ -84,7 +89,7 @@ int Percentage::getPercent(){
 }
 
 //Schedule
-Schedule::Schedule(){
+Schedule::Schedule():Toggleable(false){
 	scheduleEnabled=false;
 }
 int Schedule::setEnabled(bool n){

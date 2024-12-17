@@ -20,6 +20,12 @@ bool Light::isOn(){
 	return this->getState();
 }
 
+Light::Light(std::string name):Toggleable(false){
+	this->rename(name);
+	this->setPercent(100);
+	this->setTimer(0);
+}
+
 std::string Light::menuText(){
 	std::string out;
 	out.reserve(130);
@@ -65,22 +71,20 @@ int Light::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-Light* Light::read(std::istream& i){
-	Light* out=new Light();
+Light::Light(std::istream& i){
 	char nameRead;
 	std::string name;
 	name.reserve(10);
 	while((nameRead=i.get())!=',')name+=nameRead;
 	name.shrink_to_fit();
-	out->rename(name);
-	out->setOn(i.get()=='1');
+	this->rename(name);
+	this->setOn(i.get()=='1');
 	i.ignore(1);
 	char numBuffer[5];
 	i.getline(numBuffer,5,',');
-	out->setLevel(atoi(numBuffer));
+	this->setLevel(atoi(numBuffer));
 	i.getline(numBuffer,5,'\n');
-	out->setTimer(atoi(numBuffer));
-	return out;
+	this->setTimer(atoi(numBuffer));
 }
 int Light::dump(std::ostream& o){
 	std::stringstream buf;

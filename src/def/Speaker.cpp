@@ -8,6 +8,11 @@ enum Speaker::SpeakerState:bool{
 	Paused=false
 };
 
+Speaker::Speaker(std::string name):Toggleable(false){
+	this->rename(name);
+	this->setPercent(100);
+}
+
 int Speaker::Play(){
 	setState(Playing);
 	return 0;
@@ -68,19 +73,17 @@ int Speaker::menuParse(std::string& UserInput){
 	return exitcode;
 }
 
-Speaker* Speaker::read(std::istream& i){
-	Speaker* out=new Speaker();
+Speaker::Speaker(std::istream& i){
 	char buffer[5];
 	std::string name;
 	name.reserve(10);
 	while((buffer[0]=i.get())!=',')name+=buffer[0];
 	name.shrink_to_fit();
-	out->rename(name);
-	out->setState(i.get()=='1');
+	this->rename(name);
+	this->setState(i.get()=='1');
 	i.ignore(1);
 	i.getline(buffer,5,'\n');
-	out->setPercent(atoi(buffer));
-	return out;
+	this->setPercent(atoi(buffer));
 }
 
 int Speaker::dump(std::ostream& o){
