@@ -101,9 +101,8 @@ class Sensor : public Appliance,public HistoricDataGen{
 		Sensor(std::istream& i);
 		~Sensor();
 
-
 		int OCF();
-		static Sensor* read(std::istream&);
+
 		int dump(std::ostream& o);
 };
 
@@ -129,7 +128,6 @@ class Speaker : public Toggleable,public Percentage{
 		int setVolume(int newVol);
 		int getVolume();
 		
-		static Speaker* read(std::istream&);
 		int dump(std::ostream& o);
 };
 
@@ -153,7 +151,6 @@ class Light : public Toggleable,public Percentage,public SleepTimer{
 		int setOn(bool s);
 		bool isOn();
 
-		static Light* read(std::istream&);
 		int dump(std::ostream& o);
 };
 
@@ -179,7 +176,6 @@ class Thermostat : public Schedule{
 
 		int setBoost(bool b);
 		
-		static Thermostat* read(std::istream&);
 		int dump(std::ostream& o);
 };
 
@@ -206,7 +202,6 @@ class Socket : public Schedule,public HistoricDataGen,public SleepTimer{
 		Socket(std::istream& i);
 		~Socket();
 
-		static Socket* read(std::istream&);
 		int dump(std::ostream& o);
 };
 
@@ -229,6 +224,5 @@ class Valve : public Schedule{
 
 		int getCurrentTemp();
 		
-		static Valve* read(std::istream&);
 		int dump(std::ostream& o);
 };
