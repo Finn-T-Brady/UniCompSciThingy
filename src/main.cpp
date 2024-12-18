@@ -97,14 +97,20 @@ int main(){
 						subInvalid='0'>UserInput[0] || UserInput[0]>'6';
 					}while(subInvalid);
 					if(UserInput[0]!='0'){
-						p=UserInput[0]-'1';
-						cout<<"Enter name:";
-						getline(cin,UserInput);
-						res=find_if(Devices.begin(),Devices.end(),findName);
-						if(res==Devices.end()){
-							temp=ApplianceFactory::newAppliance(p,UserInput);
-							if(temp!=nullptr)Devices.push_back(temp);
-						}else cout<<"Name Unavailable\n";
+						do{
+							subInvalid=false;
+							p=UserInput[0]-'1';
+							cout<<"Enter name:";
+							getline(cin,UserInput);
+							res=find_if(Devices.begin(),Devices.end(),findName);
+							if(res==Devices.end() && UserInput.find(',')==-1){
+								temp=ApplianceFactory::newAppliance(p,UserInput);
+								if(temp!=nullptr)Devices.push_back(temp);
+							}else{
+								cout<<"Name Unavailable\n";
+								subInvalid=true;
+							}
+						}while(subInvalid);
 					}
 					break;
 				case 9://Quit

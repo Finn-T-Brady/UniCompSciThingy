@@ -39,7 +39,7 @@ int Appliance::menu(){
 					std::cout<<"Enter Name:";
 					std::getline(std::cin,UserInput);
 					res=std::find_if(Globals::get()->Devices.begin(),Globals::get()->Devices.end(),[UserInput](Appliance* t){return t->getName()==UserInput;});
-					if(res==Globals::get()->Devices.end()) this->rename(UserInput);
+					if(res==Globals::get()->Devices.end() && UserInput.find(',')==-1) this->rename(UserInput);
 					else std::cout<<"Name Unavailable\n\n";
 					break;
 				case 9:
