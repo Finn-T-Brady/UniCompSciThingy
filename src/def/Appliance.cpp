@@ -4,8 +4,7 @@
 #include <iterator>
 #include <algorithm>
 
-#include "../headers/appliances.h"
-#include "../headers/time.h"
+#include "../headers/appliance.h"
 
 #include "../headers/globalTracker.h"
 
@@ -60,54 +59,3 @@ int Appliance::menu(){
 	return exitcode;
 }
 
-//Toggleable
-int Toggleable::OCF(){
-	this->state^=true;
-	return 0;
-}
-int Toggleable::setState(bool NewState){
-	this->state=NewState;
-	return 0;
-}
-bool Toggleable::getState(){
-	return this->state;
-}
-
-Toggleable::Toggleable(bool s){
-	state=s;
-}
-Toggleable::Toggleable(){}
-
-//Percentage
-int Percentage::setPercent(int newPercent){
-	if(0>newPercent || newPercent>100)return -1;
-	this->percentage=newPercent;
-	return 0;
-}
-int Percentage::getPercent(){
-	return this->percentage;
-}
-
-//Schedule
-Schedule::Schedule():Toggleable(false){
-	scheduleEnabled=false;
-}
-int Schedule::setEnabled(bool n){
-	scheduleEnabled=n;
-	return 0;
-}
-bool Schedule::getEnabled(){
-	return scheduleEnabled;
-}
-
-Rider::Time& Schedule::getOn(){
-	return scheduleOn;
-}
-Rider::Time& Schedule::getOff(){
-	return scheduleOff;
-}
-
-bool Schedule::timeState(Rider::Time& curr){
-	//
-	return 0;
-}

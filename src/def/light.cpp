@@ -1,4 +1,6 @@
-#include "../headers/appliances.h"
+#include "../headers/light.h"
+#include "../headers/percentage.h"
+#include "../headers/SleepTimer.h"
 #include "../miscFunctions.h"
 
 #include <iostream>

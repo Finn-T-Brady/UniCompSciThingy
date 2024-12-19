@@ -1,3 +1,7 @@
+///////////////////////////
+//Proof of work and stuff
+//https://github.com/Finn-T-Brady/UniCompSciThingy
+///////////////////////////
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -7,7 +11,16 @@
 #include <string.h>
 #include <fstream>
 
-#include "headers/appliances.h"
+#include "headers/appliance.h"
+#include "headers/toggleable.h"
+#include "headers/schedule.h"
+#include "headers/light.h"
+#include "headers/sensor.h"
+#include "headers/speaker.h"
+#include "headers/thermostat.h"
+#include "headers/socket.h"
+#include "headers/valve.h"
+
 #include "headers/appliancefactory.h"
 
 #include "headers/globalTracker.h"

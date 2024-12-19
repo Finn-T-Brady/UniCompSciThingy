@@ -1,12 +1,17 @@
-#include "../headers/appliances.h"
+#include <iostream>
 
-int Schedule::setSchedule(Rider::Time on,Rider::Time off){
-	this->scheduleEnabled=true;
-	scheduleOn=on;
-	scheduleOff=off;
-	return 0;
+
+#include "../headers/schedule.h"
+
+#include "../headers/time.h"
+
+
+
+
+//Schedule
+Schedule::Schedule():Toggleable(false){
+	scheduleEnabled=false;
 }
-
 int Schedule::setEnabled(bool n){
 	scheduleEnabled=n;
 	return 0;
@@ -15,15 +20,14 @@ bool Schedule::getEnabled(){
 	return scheduleEnabled;
 }
 
-Rider::Time& Thermostat::getOn(){
+Rider::Time& Schedule::getOn(){
 	return scheduleOn;
 }
-Rider::Time& Thermostat::getOff(){
+Rider::Time& Schedule::getOff(){
 	return scheduleOff;
 }
 
-bool schedule::timeState(Rider::Time curr){
+bool Schedule::timeState(Rider::Time& curr){
 	//
-	//
-	return false;
+	return 0;
 }

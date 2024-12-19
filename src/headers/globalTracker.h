@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "appliances.h"
+#include "appliance.h"
 
 class Globals{
 	public:
